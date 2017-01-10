@@ -8,12 +8,12 @@ nginx:
         - .:/var/www/html
 
 db:
-    image: postgres
+    image: postgres:9.3
     hostname: db
     environment:
-        POSTGRES_PASSWORD: dbpass
-        POSTGRES_USER: dbuser
-        POSTGRES_DB: db
+        POSTGRES_PASSWORD: $DB_PASSWORD
+        POSTGRES_USER: $DB_USER
+        POSTGRES_DB: $DB_NAME
     container_name: db_container
 
 php:
@@ -24,9 +24,11 @@ php:
         - db
     environment:
         DB_HOST: db
-        DB_NAME: db
-        DB_USER: dbuser
-        DB_PASSWORD: dbpass
+        DB_NAME: $DB_NAME
+        DB_USER: $DB_USER
+        DB_PASSWORD: $DB_PASSWORD
+        LOG_THRESHOLD: 2
+        CI_ENV: development
     volumes:
         - .:/var/www/html
     container_name: php_container

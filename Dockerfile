@@ -10,8 +10,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/include/postgresql/ \ 
 	&& docker-php-ext-install gd pgsql pdo_pgsql
-RUN apt-get install curl
+RUN apt-get -y install curl
+
+WORKDIR /var/www/html/api
 
 COPY ./ /var/www/html/
-
-COPY php.ini /usr/local/etc/php/
